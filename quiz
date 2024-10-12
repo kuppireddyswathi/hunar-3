@@ -1,0 +1,46 @@
+def ask_question(question, options, correct_answer):
+    print("\n" + question)
+    for i, option in enumerate(options, 1):
+        print(f"{i}. {option}")
+    while True:
+        try:
+            answer = int(input("Your answer (1-4): "))
+            if 1 <= answer <= 4:
+                break
+            else:
+                print("Please enter a number between 1 and 4.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+    
+    if options[answer - 1].lower() == correct_answer.lower():
+        print("Correct!\n")
+        return True
+    else:
+        print(f"Incorrect. The correct answer is '{correct_answer}'.\n")
+        return False
+
+def run_quiz(questions):
+    score = 0
+    for question, options, correct_answer in questions:
+        if ask_question(question, options, correct_answer):
+            score += 1
+    return score
+
+def main():
+    questions = [
+        ("What is the capital of France?", ["Berlin", "Madrid", "Paris", "Lisbon"], "Paris"),
+        ("Which planet is known as the Red Planet?", ["Earth", "Mars", "Jupiter", "Saturn"], "Mars"),
+        ("What is the largest ocean on Earth?", ["Atlantic", "Indian", "Arctic", "Pacific"], "Pacific"),
+        ("Who wrote 'To Kill a Mockingbird'?", ["Harper Lee", "Mark Twain", "Ernest Hemingway", "F. Scott Fitzgerald"], "Harper Lee"),
+    ]
+
+    print("Welcome to the Quiz!")
+    print("---------------------")
+    score = run_quiz(questions)
+    total_questions = len(questions)
+    
+    print(f"Quiz completed! You scored {score} out of {total_questions}.")
+    print(f"Your percentage score: {score / total_questions * 100:.2f}%")
+
+if __name__ == "__main__":
+    main()
